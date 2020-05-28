@@ -24,21 +24,21 @@ public:
 
   const Exponent* getPointer() const {return _exponents;}
 
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
   size_t size() const {return _size;}
   bool operator==(const Monomial& m) const {return _exponents == m._exponents;}
   bool operator<(const Monomial& m) const {return _exponents < m._exponents;}
 #endif
 
 private:
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
   size_t _size;
 #endif
   Exponent* _exponents;
 };
 
 inline std::ostream& operator<<(std::ostream& out, const Monomial& monomial) {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
   out << "(Monomial:";
   for (size_t i = 0; i < monomial.size(); ++i)
     out << ' ' << monomial[i];
