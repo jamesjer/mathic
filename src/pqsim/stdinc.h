@@ -28,7 +28,7 @@
 #pragma warning (disable: 4355)
 
 #ifdef _DEBUG
-#define DEBUG
+#define MATHIC_DEBUG
 #endif
 
 #endif
@@ -36,7 +36,8 @@
 #include <cstddef>
 #include <memory>
 
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
+#define DEBUG
 #include <iostream> // Useful for debugging.
 #define PRINT
 #include <cassert>

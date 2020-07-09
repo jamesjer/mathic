@@ -13,6 +13,10 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH})
 find_package(Threads 2.1 REQUIRED QUIET)
 find_package(Memtailor   REQUIRED)
 
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  add_compile_options(-DMATHIC_DEBUG -DMEMT_DEBUG)
+endif()
+
 add_compile_options(
   -DPACKAGE_NAME="${PROJECT_NAME}"
   -DPACKAGE_TARNAME="${PROJECT_NAME}"

@@ -543,7 +543,7 @@ namespace mathic {
   template<class Iter>
   void PairQueue<C>::addColumnDescending
   (Iter const sortedRowsBegin, Iter const sortedRowsEnd) {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
 	if (SupportRetirement) {
 	  for (Iter it = sortedRowsBegin; it != sortedRowsEnd; ++it)
 		MATHIC_ASSERT(!retired(*it));

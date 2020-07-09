@@ -13,7 +13,7 @@ int main() {
   std::cout << "Generating simulation. ";
 
     
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
   sim.makeStandard(10, 400, 1000, true);
 #else
   sim.makeStandard(10, 5000, 2000000, true);
@@ -21,7 +21,7 @@ int main() {
   timer.print(std::cout);
   std::cout << std::endl;
 
-#ifndef DEBUG
+#ifndef MATHIC_DEBUG
   sim.run<KDTreeModel<1,1,1,1,1> >(0, 0, 0, 1.0, 1000);
   sim.run<KDTreeModel<1,1,1,1,0> >(0, 0, 0, 1.0, 1000);
 return 0;

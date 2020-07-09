@@ -43,7 +43,7 @@ int main(int argc, const char** args) {
   //sim.printEvents(std::cerr);
   std::cerr << '\n' << std::endl;
 
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
   {TourTreeModel<0,0> x; sim.run(x);}
   {HeapModel<0,0,0> x; sim.run(x);}
 #else

@@ -61,7 +61,7 @@ class Simulation {
     EventType _type;
     std::vector<int> _monomial;
     std::vector<const Monomial::Exponent*> _state;
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
     std::vector<Monomial> _allMonomials;
 #else
     size_t _monomialCount;
@@ -130,7 +130,7 @@ class Simulation::MonomialStore {
 public:
   MonomialStore() {clear();}
   void clear() {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
     _monomials.clear();
 #else
     _monomialCount = 0;
@@ -141,7 +141,7 @@ public:
     proceed(monomial);
   }
   bool proceed(const Monomial& monomial) {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
     _monomials.push_back(monomial);
 #else
     ++_monomialCount;
@@ -151,12 +151,12 @@ public:
 
   template<class Finder>
   void checkInsert(Event& e, const Finder& finder) {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
     std::sort(_monomials.begin(), _monomials.end());
 #endif
 
     if (e._type == InsertUnknown) {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
       e._allMonomials.clear();
       for (size_t i = 0; i < _monomials.size(); ++i)
         e._allMonomials.push_back(_monomials[i]);
@@ -165,7 +165,7 @@ public:
 #endif
       e._type = InsertKnown;
     } else {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
       ASSERT(_monomials == e._allMonomials);
 #else
       if (_monomialCount != e._monomialCount) {
@@ -179,7 +179,7 @@ public:
 
   template<class Finder>
   void checkQuery(Event& e, const Finder& finder) {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
     for (size_t d = 0; d < _monomials.size(); ++d) {
       for (size_t var = 0; var < e._monomial.size(); ++var) {
         ASSERT(_monomials[d][var] <= e._monomial[var]);
@@ -190,7 +190,7 @@ public:
 
     if (e._type == QueryUnknown) {
       bool noMonomials;
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
       e._allMonomials.clear();
       for (size_t i = 0; i < _monomials.size(); ++i)
         e._allMonomials.push_back(_monomials[i]);
@@ -201,7 +201,7 @@ public:
 #endif
       e._type = noMonomials ? QueryNoDivisor : QueryHasDivisor;
     } else {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
       for (size_t i = 0; i < _monomials.size(); ++i)
         ASSERT(_monomials[i] == e._allMonomials[i]);
 #else
@@ -215,7 +215,7 @@ public:
   }
 
 private:
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
   std::vector<Monomial> _monomials;
 #else
   size_t _monomialCount;
@@ -274,7 +274,7 @@ void Simulation::run(DivFinder& finder) {
           }
           e._type = QueryNoDivisor;
         } else {
-#ifdef DEBUG
+#ifdef MATHIC_DEBUG
           for (size_t var = 0; var < _varCount; ++var) {
             ASSERT((*entry)[var] <= e._monomial[var]);
           }
