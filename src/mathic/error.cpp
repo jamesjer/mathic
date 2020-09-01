@@ -2,15 +2,15 @@
 #include <sstream>
 
 namespace mathic {
-  void reportError(const std::string& errorMsg) {
+  void reportError [[noreturn]] (const std::string& errorMsg) {
     throw MathicException("ERROR: " + errorMsg);
   }
 
-  void reportInternalError(const std::string& errorMsg) {
+  void reportInternalError [[noreturn]] (const std::string& errorMsg) {
     throw InternalMathicException("INTERNAL ERROR: " + errorMsg);
   }
 
-  void reportInternalError
+  void reportInternalError [[noreturn]]
   (const std::string& errorMsg, const char* file, unsigned int lineNumber) {
 
     std::ostringstream err;

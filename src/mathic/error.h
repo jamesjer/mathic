@@ -18,26 +18,19 @@ namespace mathic {
     InternalMathicException(const std::string& str): logic_error(str) {}
   };
 
-  // The do {...} while (0) is to collect everything into a single
-  // statement that still requires a semicolon after it. The throw is to
-  // prevent spurious compiler warnings about a missing return
-  // statement.
   #define MATHIC_INTERNAL_ERROR(msg) \
-    do { \
-      reportInternalError(msg, __FILE__, __LINE__); \
-      throw; \
-    } while (false)
+    reportInternalError(msg, __FILE__, __LINE__)
   #define INTERNAL_ERROR_UNIMPLEMENTED() \
     INTERNAL_ERROR("Called function that has not been implemented.")
 
   // These methods throw exceptions.
-  void reportError(const std::string& errorMsg);
-  void reportInternalError(const std::string& errorMsg);
-  void reportInternalError
+  void reportError [[noreturn]] (const std::string& errorMsg);
+  void reportInternalError [[noreturn]] (const std::string& errorMsg);
+  void reportInternalError [[noreturn]]
   (const std::string& errorMsg, const char* file, unsigned int lineNumber);
 
   template<class Exception>
-  void throwError(const std::string& errorMsg) {
+  void throwError [[noreturn]] (const std::string& errorMsg) {
     throw Exception("ERROR: " + errorMsg + '\n');
   }
 
